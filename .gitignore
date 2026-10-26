@@ -1,0 +1,5 @@
+node_modules/
+dist/
+portable-site/
+.env*
+.DS_Store

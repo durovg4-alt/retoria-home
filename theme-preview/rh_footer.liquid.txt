@@ -3,11 +3,11 @@
 <footer class="footer"><div class="shell">
   <div class="footer-grid">
     <div class="footer-brand"><a class="brand" href="/">RETORIA<span>HOME</span></a><p class="muted">Красивый интерьер.<br>Просто выбрать.</p></div>
-    <div class="footer-col"><h3>Каталог</h3><a href="/collection/shtory">Шторы</a><a href="/collection/tyul">Тюль</a><a href="/collection/komplekty-na-okno">Комплекты на окно</a><a href="/collection/all">Весь каталог</a></div>
-    <div class="footer-col"><h3>Покупателям</h3><a href="/page/delivery">Доставка</a><a href="/page/payment">Оплата</a><a href="/page/contacts">Помощь мастера</a><a href="/client_account/login">Личный кабинет</a></div>
-    <div class="footer-col"><h3>О бренде</h3><a href="/page/about-us">О компании</a><a href="/collection/tyul">Ткани и цвета</a><a href="/page/contacts">Контакты</a></div>
+    <div class="footer-col"><h3>Каталог</h3><a href="/collection/shtory">Шторы</a><a href="/collection/tyul">Тюль</a><a href="/collection/komplekty-na-okno">Комплекты на окно</a><a href="/page/solutions">Готовые решения</a></div>
+    <div class="footer-col"><h3>Покупателям</h3><a href="/page/delivery#delivery">Доставка и оплата</a><a href="/page/delivery#returns">Возврат и обмен</a><a href="/page/delivery#faq">Вопросы и ответы</a><a href="/page/delivery#care">Уход</a><a href="/client_account/login">Отслеживание заказа</a><a href="/page/measure">Как замерить</a></div>
+    <div class="footer-col"><h3>О бренде</h3><a href="/page/about-us">О производстве</a><a href="/page/fabrics">Ткани и цвета</a><a href="/page/fabrics#samples">Образцы тканей</a><a href="/page/sew">Пошив по размерам</a><a href="/page/help">Помощь мастера</a></div>
     <div class="footer-col"><h3>Контакты</h3><a href="tel:+79201812013">8 920 181-20-13</a><a href="mailto:retoria-82@mail.ru">retoria-82@mail.ru</a><a href="https://t.me/+79201812013" target="_blank" rel="noopener">Telegram</a><a href="https://wa.me/79201812013" target="_blank" rel="noopener">WhatsApp</a><a href="/page/contacts">Пн–Сб 9:00–19:00 (МСК)</a><a href="/page/contacts">Тверь, ул. Чайковского, 42</a></div>
   </div>
-  <div class="footer-bottom"><span>© 2026 Retoria Home · ИП Резвонов Т. Ш., ИНН 761028269875, ОГРНИП 323510000000158</span><span><a href="/page/oferta">Оферта и политика конфиденциальности</a></span></div>
+  <div class="footer-bottom"><span>© 2026 Retoria Home · <a href="/page/oferta#requisites">ИП Резвонов Т. Ш., ИНН 761028269875, ОГРНИП 323510000000158</a></span><span><a href="/page/oferta#policy">Политика конфиденциальности</a> · <a href="/page/oferta#offer">Оферта</a> · <a href="/page/oferta#consent">Согласие на обработку данных</a></span></div>
 </div></footer>
 </div>

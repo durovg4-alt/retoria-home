@@ -113,3 +113,13 @@ body, .layout { background: var(--rh-paper); }
 .rh-contents { display: contents; }
 .rh-site .rh-nophoto { display: grid; place-items: center; width: 100%; aspect-ratio: .78; background: var(--warm); color: var(--muted); font-size: 14px; }
 .rh-site .rh-desc ul { padding-left: 1.2em; }
+.rh-site .choice.rh-off { opacity: .42; }
+/* кнопка «наверх» InSales — в наших цветах */
+.btn-on-top { width: 48px; height: 48px; border-radius: 50% !important; background: var(--rh-ink) !important; color: #f8f5ed !important; }
+
+/* заявки и страница примерки */
+.rh-site .rh-lead-note { margin: 12px 0 0; font-size: 14px; line-height: 1.5; }
+.rh-site .rh-lead-note.ok { color: var(--moss); }
+.rh-site .rh-try-soon { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; padding-block: 40px 80px; }
+.rh-site .rh-try-soon .comparison { min-height: 420px; }
+@media (max-width: 860px) { .rh-site .rh-try-soon { grid-template-columns: 1fr; } .rh-site .rh-try-soon .comparison { min-height: 300px; } }

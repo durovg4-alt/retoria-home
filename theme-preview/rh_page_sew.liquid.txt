@@ -1,0 +1,32 @@
+<nav class="shell breadcrumb" aria-label="Хлебные крошки"><a href="/">Главная</a> / <span aria-current="page">Пошив по размерам</span></nav>
+  <section class="shell page-head"><h1 class="section-title">Пошив по вашим размерам</h1><p class="lede">Введите параметры — покажем расход ткани и предварительную цену. Мастер проверит замеры и подтвердит цену до раскроя.</p></section>
+  <section class="shell sew-layout" data-sew=""><form class="sew-form" data-sew-form="">
+    <div class="field"><label for="sew-fabric">Ткань</label><select id="sew-fabric" name="fabric"><option value="len-molniya">Тюль под лён «Молния» · Рассеивает свет</option><option value="len-babochka" selected="">Тюль под лён «Бабочка» · Рассеивает свет</option><option value="len-zoloto">Тюль под лён «Блеск золото» · Рассеивает свет</option><option value="len-spiral">Тюль под лён «Спираль» · Прозрачный</option><option value="len-rasteniya">Тюль под лён «Растения» · Прозрачный</option><option value="len-zvezda">Тюль под лён «Звезда» · Рассеивает свет</option><option value="len-kolco">Тюль под лён «Кольца» · Рассеивает свет</option><option value="len-kvadrat">Тюль под лён «Квадрат» · Рассеивает свет</option><option value="len-organza">Тюль под лён «Органза» · Рассеивает свет</option><option value="voile">Вуаль белая однотонная · Прозрачный</option><option value="blackout-molniya">Бархат блэкаут «Молния» · Затемнение 85–95%</option><option value="blackout-marble">Бархат блэкаут «Мрамор» · Затемнение 85–95%</option></select></div>
+    <div class="field"><span class="label">Цвет</span><div class="swatch-checks"><label title="№ 01 Белый"><input type="radio" name="color" value="01" checked=""><i style="background:#f4f2ec"></i><small>01</small></label></div><small class="muted">№ 01 Белый</small></div>
+    <div class="field-grid">
+      <div class="field"><label for="sew-rod">Ширина карниза, см</label><input id="sew-rod" name="rod" type="number" min="60" max="800" required="" value="300"><small class="muted">Между крайними крючками, без наконечников</small></div>
+      <div class="field"><label for="sew-height">Высота, см</label><input id="sew-height" name="height" type="number" min="100" max="400" required="" value="260"><small class="muted" data-height-hint="">Измеряйте от крючка карниза до пола</small></div>
+    </div>
+    <div class="field"><span class="label">Положение относительно пола</span><div class="choice-row"><label class="choice-radio"><input type="radio" name="floor" value="Не касается пола"><span>Не касается пола</span></label><label class="choice-radio"><input type="radio" name="floor" value="Ровно в пол" checked=""><span>Ровно в пол</span></label><label class="choice-radio"><input type="radio" name="floor" value="С заломом"><span>С заломом</span></label></div></div>
+    <div class="field"><span class="label">Крепление</span><div class="choice-row"><label class="choice-radio"><input type="radio" name="fastening" value="Шторная лента" checked=""><span>Шторная лента</span></label></div></div>
+    <div class="field"><span class="label">Количество полотен</span><div class="choice-row"><label class="choice-radio"><input type="radio" name="panels" value="1"><span>Одно полотно</span></label><label class="choice-radio"><input type="radio" name="panels" value="2" checked=""><span>Пара</span></label></div></div>
+    <div class="field"><span class="label">Подкладка</span><div class="choice-row"><label class="choice-radio"><input type="radio" name="lining" value="Без подкладки" checked=""><span>Без подкладки</span></label></div></div>
+    <p class="muted small">Крепление «Французская складка» и подкладки — после подтверждения технологом. <a class="text-link" href="/page/measure">Как замерить <span aria-hidden="true">→</span></a></p>
+  </form>
+  <div class="summary sew-result" data-sew-result=""><h2>Предварительный расчёт</h2>
+    <div class="summary-row"><span>Ширина до сборки</span><strong>600 см (2 × 300)</strong></div>
+    <div class="summary-row"><span>Ширина в готовом виде</span><strong>300 см</strong></div>
+    <div class="summary-row"><span>Высота изделия</span><strong>260 см</strong></div>
+    <div class="summary-row"><span>Расход ткани</span><strong>6,2 м</strong></div>
+    <div class="summary-row"><span>Затемнение</span><strong>Рассеивает свет</strong></div>
+    <div class="summary-row"><span>Срок</span><strong>3–5 рабочих дней</strong></div>
+    <div class="summary-row total"><span>Ориентировочно</span><span>≈ 1&nbsp;980 ₽</span></div>
+    <p class="muted small">Оценка по ценам наших готовых размеров.</p>
+    <p class="warn">Расчёт предварительный. В раскрой заказ автоматически не уходит: мастер проверит замеры и подтвердит цену.</p>
+    <form data-rh-lead="sew" class="lead-mini">
+      <input type="hidden" name="Расчёт" value="Тюль под лён «Бабочка», № 01 Белый, карниз 300 см, высота 260 см, Ровно в пол, Шторная лента, полотен 2, Без подкладки; до сборки 600 см, расход 6.2 м, 1980 ₽">
+      <div class="field"><label>Имя</label><input name="Имя" required="" autocomplete="name"></div>
+      <div class="field"><label>Телефон или мессенджер</label><input name="Контакт" required="" autocomplete="tel"></div>
+      <label class="check consent"><input type="checkbox" name="Согласие" value="да" required><span>Согласен на <a href="/page/oferta#consent">обработку персональных данных</a></span></label>
+      <button class="pill primary">Отправить расчёт мастеру</button>
+    </form></div></section>

@@ -1,0 +1,23 @@
+<nav class="shell breadcrumb" aria-label="Хлебные крошки"><a href="/">Главная</a> / <span aria-current="page">Как замерить</span></nav>
+  <section class="shell page-head"><h1 class="section-title">Как замерить окно</h1><p class="lede">Замер займёт 10 минут. Карниз лучше установить заранее — мерить будем от него.</p></section>
+  <section class="shell measure-layout">
+    <svg class="measure-svg" viewBox="0 0 520 440" role="img" aria-label="Схема замера: ширина карниза между крайними крючками и высота от точки крепления до пола в трёх местах">
+      <rect x="150" y="90" width="220" height="230" rx="4" fill="#eeebe2" stroke="#232218" stroke-width="2"></rect><path d="M260 90v230M150 205h220" stroke="#232218" stroke-width="1.5"></path>
+      <line x1="70" y1="50" x2="450" y2="50" stroke="#232218" stroke-width="4" stroke-linecap="round"></line>
+      <circle cx="90" cy="56" r="4" fill="none" stroke="#595b3b" stroke-width="2"></circle><circle cx="130" cy="56" r="4" fill="none" stroke="#595b3b" stroke-width="2"></circle><circle cx="170" cy="56" r="4" fill="none" stroke="#595b3b" stroke-width="2"></circle><circle cx="210" cy="56" r="4" fill="none" stroke="#595b3b" stroke-width="2"></circle><circle cx="250" cy="56" r="4" fill="none" stroke="#595b3b" stroke-width="2"></circle><circle cx="290" cy="56" r="4" fill="none" stroke="#595b3b" stroke-width="2"></circle><circle cx="330" cy="56" r="4" fill="none" stroke="#595b3b" stroke-width="2"></circle><circle cx="370" cy="56" r="4" fill="none" stroke="#595b3b" stroke-width="2"></circle><circle cx="410" cy="56" r="4" fill="none" stroke="#595b3b" stroke-width="2"></circle><circle cx="430" cy="56" r="4" fill="none" stroke="#595b3b" stroke-width="2"></circle>
+      <path d="M90 26h340" stroke="#a55735" stroke-width="2" marker-start="url(#a)" marker-end="url(#a)"></path><text x="260" y="18" text-anchor="middle" font-size="14" fill="#a55735">Ширина: между крайними крючками</text>
+      <path d="M110 62v348" stroke="#595b3b" stroke-width="2" stroke-dasharray="6 5"></path><text x="116" y="230" font-size="13" fill="#595b3b">H1</text><path d="M260 62v348" stroke="#595b3b" stroke-width="2" stroke-dasharray="6 5"></path><text x="266" y="244" font-size="13" fill="#595b3b">H2</text><path d="M410 62v348" stroke="#595b3b" stroke-width="2" stroke-dasharray="6 5"></path><text x="416" y="258" font-size="13" fill="#595b3b">H3</text>
+      <line x1="20" y1="412" x2="500" y2="412" stroke="#232218" stroke-width="2"></line><text x="260" y="434" text-anchor="middle" font-size="13" fill="#77766d">Пол · берём наименьшую из H1, H2, H3</text>
+      <defs><marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="#a55735"></path></marker></defs>
+    </svg>
+    <div>
+      <ol class="measure-steps">
+        <li><h3>Ширина</h3><p>Измерьте карниз между крайними крючками, без декоративных наконечников.</p></li>
+        <li><h3>Высота в трёх местах</h3><p>Слева, по центру и справа — пол часто неровный. Берите наименьшее значение.</p></li>
+        <li><h3>Точка замера зависит от крепления</h3><table class="gather-table"><tbody><tr><td>Шторная лента</td><td>от крючка карниза до пола</td></tr><tr><td>Люверсы</td><td>от верха штанги карниза до пола</td></tr><tr><td>Скрытые петли</td><td>от верха штанги карниза до пола</td></tr><tr><td>Французская складка</td><td>от крючка карниза до пола</td></tr></tbody></table></li>
+        <li><h3>Длина относительно пола</h3><p><b>Не касается пола</b> — минус 1 см, удобно для уборки. <b>Ровно в пол</b> — классика. <b>С заломом</b> — плюс 5–10 см, мягкая волна на полу.</p></li>
+      </ol>
+      <p class="warn">Перед раскроем мастер обязательно проверит ваши замеры и подтвердит их с вами.</p>
+      <div class="row-actions"><a class="pill primary" href="/page/sew">Рассчитать пошив <span aria-hidden="true">→</span></a><a class="pill" href="/page/help">Прислать фото мастеру</a></div>
+    </div>
+  </section>

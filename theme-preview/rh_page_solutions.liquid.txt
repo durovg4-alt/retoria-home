@@ -1,0 +1,32 @@
+<nav class="shell breadcrumb" aria-label="Хлебные крошки"><a href="/">Главная</a> / <span aria-current="page">Готовые решения</span></nav>
+  <section class="shell page-head"><h1 class="section-title">Готовые решения</h1><p class="lede">Выберите комнату — шторы, тюль и аксессуары в комплекте уже сочетаются по цвету, плотности и размеру.</p></section>
+  <section class="shell"><div class="solution-grid three"><a class="solution-card" href="/product/komplekt-molniya-tyul-shtory-blekaut-chyornye">
+    <div class="solution-media"><img src="{{ 'rh-room-bedroom-hq.webp' | asset_url }}" alt="Спальня" loading="lazy"></div>
+    <h3>Спальня</h3><p>Темнота для спокойного сна: чёрные шторы блэкаут и белый тюль с одним рисунком «Молния».</p>
+    <ul><li>Тюль «Молния» 300 × 240 + 2 шторы блэкаут «Молния» 150 × 240</li><li>Тюль 300 × 240 + шторы 2 × 150 × 240 см</li><li>Чёрный + белый</li><li>Шторы + тюль</li></ul>
+    <div class="solution-foot"><strong>8&nbsp;697 ₽</strong><span>Смотреть <span aria-hidden="true">→</span></span></div>
+  </a><a class="solution-card" href="/product/komplekt-molniya-tyul-shtory-blekaut-chyornye">
+    <div class="solution-media"><img src="{{ 'rh-tulle-molniya-1.jpg' | asset_url }}" alt="Гостиная" loading="lazy"></div>
+    <h3>Гостиная</h3><p>Белый тюль и чёрные бархатные шторы с одним рисунком «Молния»: светло днём, уютно вечером.</p>
+    <ul><li>Тюль «Молния» 300 × 240 + 2 шторы блэкаут «Молния» 150 × 240</li><li>Тюль 300 × 240 + шторы 2 × 150 × 240 см</li><li>Белый + чёрный</li><li>Тюль + шторы</li></ul>
+    <div class="solution-foot"><strong>8&nbsp;697 ₽</strong><span>Смотреть <span aria-hidden="true">→</span></span></div>
+  </a><a class="solution-card" href="/product/tyul-pod-lyon-zvezda-belyy-s-utyazhelitelem">
+    <div class="solution-media"><img src="{{ 'rh-touch.webp' | asset_url }}" alt="Детская" loading="lazy"></div>
+    <h3>Детская</h3><p>Лёгкий тюль со звёздами: мягкий свет днём и уютное настроение.</p>
+    <ul><li>Тюль «Звезда» 300 × 250 + шторы в тон</li><li>Тюль 200–400 × 220–250 см</li><li>Белый со звёздами</li><li>Тюль + шторы</li></ul>
+    <div class="solution-foot"><strong>≈ 1&nbsp;699 ₽</strong><span>Смотреть <span aria-hidden="true">→</span></span></div>
+  </a><a class="solution-card" href="/product/tyul-s-lambrekenom-dlya-kuhni-belyy-s-serebristymi-prozhilkami">
+    <div class="solution-media"><img src="{{ 'rh-lambrequin-1.jpg' | asset_url }}" alt="Кухня" loading="lazy"></div>
+    <h3>Кухня</h3><p>Короткий тюль с ламбрекеном для небольшого окна.</p>
+    <ul><li>Ламбрекен 200 × 40 + тюль 200 × 150</li><li>Ламбрекен 200 × 40 см + тюль 200 × 150 см</li><li>Белый с серебристыми прожилками</li><li>До подоконника</li></ul>
+    <div class="solution-foot"><strong>1&nbsp;130 ₽</strong><span>Смотреть <span aria-hidden="true">→</span></span></div>
+  </a><a class="solution-card" href="/collection/all">
+    <div class="solution-media"><img src="{{ 'rh-showroom.webp' | asset_url }}" alt="Тёплый семейный дом" loading="lazy"></div>
+    <h3>Тёплый семейный дом</h3><p>Плотные шторы и тюль «Бабочка»: тепло, уют и мягкий свет.</p>
+    <ul><li>Шторы блэкаут 300 × 260 + тюль «Бабочка» 300 × 260</li><li>Размер 300 × 260 см</li><li>Графит / белый с бабочкой</li><li>Шторы + тюль</li></ul>
+    <div class="solution-foot"><strong>≈ 4&nbsp;990 ₽</strong><span>Смотреть <span aria-hidden="true">→</span></span></div>
+  </a></div></section>
+  <section class="home-shell block"><div class="final-help reveal">
+  <div><h2>Не уверены в размере или ткани?</h2><p>Пришлите фото окна — мастер проверит замеры и предложит 2–3 решения.</p></div>
+  <div class="final-help-actions"><a class="pill light" href="/page/measure">Как замерить</a><a class="pill primary" href="/page/help">Получить помощь <span aria-hidden="true">→</span></a></div>
+</div></section>

@@ -1,0 +1,28 @@
+{%- comment -%}
+  RETORIA HOME: страницы прототипа. Страница выбирается по адресу (/page/<handle>), её содержимое — в snippets/rh_page_*.liquid.
+  Новые страницы создаются в админке InSales с такими адресами: solutions, sew, fabrics, measure, help, tryon.
+  Существующие: delivery / payment / contacts -> «Покупателям», about-us -> «О бренде», oferta -> документы.
+  Любая другая страница выводится в нашем оформлении с текстом из админки.
+{%- endcomment -%}
+<div class="rh-site"><div class="page">
+{%- case page.handle -%}
+{%- when 'solutions' -%}{% include "rh_page_solutions" %}
+{%- when 'sew' -%}{% include "rh_page_sew" %}
+{%- when 'fabrics' -%}{% include "rh_page_fabrics" %}{% include "rh_page_samples" %}
+{%- when 'measure' -%}{% include "rh_page_measure" %}
+{%- when 'help' -%}{% include "rh_page_help" %}
+{%- when 'tryon' -%}{% include "rh_page_tryon" %}
+{%- when 'about-us' -%}{% include "rh_page_about" %}
+{%- when 'delivery' -%}<div data-rh-anchor="delivery">{% include "rh_page_buyers" %}</div>
+{%- when 'payment' -%}<div data-rh-anchor="delivery">{% include "rh_page_buyers" %}</div>
+{%- when 'contacts' -%}<div data-rh-anchor="contacts">{% include "rh_page_buyers" %}</div>
+{%- when 'oferta' -%}
+  <nav class="shell breadcrumb" aria-label="Хлебные крошки"><a href="/">Главная</a> / <span aria-current="page">Документы</span></nav>
+  {%- if page.content != blank -%}<section class="shell page-head" id="offer"><h1 class="section-title small">{{ page.title | default: "Публичная оферта" }}</h1><div class="lede rh-desc">{{ page.content }}</div></section>{%- else -%}{% include "rh_page_legal_offer" %}{%- endif -%}
+  {% include "rh_page_legal_policy" %}{% include "rh_page_legal_consent" %}{% include "rh_page_legal_requisites" %}
+{%- else -%}
+  <nav class="shell breadcrumb" aria-label="Хлебные крошки"><a href="/">Главная</a> / <span aria-current="page">{{ page.title }}</span></nav>
+  <section class="shell page-head"><h1 class="section-title">{{ page.title }}</h1></section>
+  <section class="section compact shell"><div class="lede rh-desc">{{ page.content }}</div></section>
+{%- endcase -%}
+</div></div>

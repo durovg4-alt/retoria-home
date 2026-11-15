@@ -41,7 +41,7 @@
             <input type="hidden" name="quantity" value="1" data-rh-qty-input>
             <button class="pill primary" type="submit" data-rh-add{% if product.variants.size > 1 %} disabled{% endif %}>{% if product.variants.size > 1 %}Выберите размер{% else %}В корзину{% endif %}</button></div>
         </form>
-        <div class="panel-links"><a class="pill" href="/page/contacts">Сшить по своим размерам</a><a class="pill" href="/page/contacts"><svg class="icon" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"></path><circle cx="12" cy="13" r="3.5"></circle></svg> Фото окна консультанту</a></div>
+        <div class="panel-links"><a class="pill" href="/page/sew">Сшить по своим размерам</a><a class="pill" href="/page/help"><svg class="icon" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"></path><circle cx="12" cy="13" r="3.5"></circle></svg> Фото окна консультанту</a></div>
         <div class="pp-note"><strong>Доставка</strong> СДЭК, Яндекс Доставка и пункты выдачи. Стоимость — при оформлении.</div>
         <div class="pp-note"><strong>Возврат</strong> Обмен и возврат в течение 14 дней при сохранении товарного вида. Гарантия 60 дней на заводской брак: швы и утяжелитель.</div>
       </div>
@@ -55,7 +55,7 @@
 
   <section class="section compact shell" id="measure"><div class="measure-card">
     <div><p class="eyebrow">Размер и замер</p><h2 class="section-title small">Как выбрать размер</h2><p class="lede">Ширину полотна берём больше ширины карниза — так шторы ложатся складками. Это коэффициент сборки. Высоту меряйте от точки крепления до пола в трёх местах и берите меньшее значение.</p>
-    <div class="row-actions"><a class="pill" href="/page/contacts">Помощь мастера по фото</a><a class="pill primary" href="/page/contacts">Сшить по своим размерам <span aria-hidden="true">→</span></a></div></div>
+    <div class="row-actions"><a class="pill" href="/page/measure">Инструкция по замеру</a><a class="pill primary" href="/page/sew">Сшить по своим размерам <span aria-hidden="true">→</span></a></div></div>
     <table class="gather-table"><thead><tr><th>Крепление</th><th>Коэффициент сборки</th><th>Пример: карниз 200 см</th></tr></thead><tbody><tr><td>Шторная лента</td><td>× 2</td><td>400 см ткани</td></tr></tbody></table>
   </div></section>
 </div>

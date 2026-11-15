@@ -7,7 +7,7 @@
       <a class="brand" href="/" aria-label="Retoria Home, на главную">RETORIA<span>HOME</span></a>
       <nav class="nav-links" aria-label="Основная навигация">
         <div class="nav-drop"><a href="/collection/all"{% if template contains 'collection' %} class="active"{% endif %}>Каталог</a><div class="nav-drop-panel"><a href="/collection/shtory">Шторы</a><a href="/collection/tyul">Тюль</a><a href="/collection/komplekty-na-okno">Комплекты на окно</a><a class="all" href="/collection/all">Весь каталог <span aria-hidden="true">→</span></a></div></div>
-        <a href="/collection/komplekty-na-okno" class="nav-accent">Готовые решения</a><a href="/page/contacts">Пошив по размерам</a><a href="/collection/tyul">Ткани и образцы</a><a href="/page/delivery">Покупателям</a><a href="/page/about-us">О бренде</a>
+        <a href="/page/solutions" class="nav-accent">Готовые решения</a><a href="/page/tryon" class="nav-try"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3c.7 4.6 3.4 7.3 8 8-4.6.7-7.3 3.4-8 8-.7-4.6-3.4-7.3-8-8 4.6-.7 7.3-3.4 8-8Z"></path></svg> Примерка</a><a href="/page/sew">Пошив по размерам</a><a href="/page/fabrics">Ткани и образцы</a><a href="/page/measure">Как замерить</a><a href="/page/delivery">Покупателям</a><a href="/page/about-us">О бренде</a>
       </nav>
       <div class="nav-actions">
         <a href="/search" class="icon-btn search" aria-label="Поиск"><svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg></a>
@@ -18,6 +18,6 @@
     </div>
   </header>
   <nav class="mobile-menu" aria-label="Мобильная навигация">
-    <a href="/collection/all">Каталог</a><a class="sub" href="/collection/shtory">Шторы</a><a class="sub" href="/collection/tyul">Тюль</a><a class="sub" href="/collection/komplekty-na-okno">Комплекты на окно</a><a href="/collection/komplekty-na-okno" class="nav-accent">Готовые решения</a><a href="/page/contacts">Пошив по размерам</a><a href="/page/delivery">Покупателям</a><a href="/page/about-us">О бренде</a><a href="/favorites">Избранное</a><a href="/client_account/login">Личный кабинет</a>
+    <a href="/collection/all">Каталог</a><a class="sub" href="/collection/shtory">Шторы</a><a class="sub" href="/collection/tyul">Тюль</a><a class="sub" href="/collection/komplekty-na-okno">Комплекты на окно</a><a href="/page/solutions" class="nav-accent">Готовые решения</a><a href="/page/tryon" class="nav-try"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3c.7 4.6 3.4 7.3 8 8-4.6.7-7.3 3.4-8 8-.7-4.6-3.4-7.3-8-8 4.6-.7 7.3-3.4 8-8Z"></path></svg> Примерка</a><a href="/page/sew">Пошив по размерам</a><a href="/page/fabrics">Ткани и образцы</a><a href="/page/measure">Как замерить</a><a href="/page/delivery">Покупателям</a><a href="/page/about-us">О бренде</a><a href="/favorites">Избранное</a><a href="/client_account/login">Личный кабинет</a>
   </nav>
 </div>

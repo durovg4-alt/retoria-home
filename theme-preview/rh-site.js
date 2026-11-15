@@ -92,13 +92,18 @@
     // цвет как свойство варианта («Белый» / «Белый с золотом» у «Молнии»): кликабельные образцы
     var colorList = opts.map(function (o) { return o.c; }).filter(function (c, i, a) { return c && a.indexOf(c) === i; });
     var multiColor = colorList.length > 1;
-    var hexOf = function (c) { return /золот/i.test(c) ? "linear-gradient(135deg, #f4f2ec 55%, #c9a24a 55%)" : /чёрн|черн/i.test(c) ? "#1f1e1b" : "#f4f2ec"; };
+    var hexOf = function (c) { return /золот/i.test(c) ? "linear-gradient(135deg, #f4f2ec 55%, #c9a24a 55%)" : /шоколад|мрамор/i.test(c) ? "#5a4232" : /чёрн|черн/i.test(c) ? "#1f1e1b" : "#f4f2ec"; };
     var inColor = function (o) { return !multiColor || o.c === pick.c; };
-    // фото по цвету: у золотой «Молнии» файлы *-gold-*, общие инфографики (*-common-*) видны всегда
+    // фото по цвету: метка цвета в имени файла (золотой «Молнии» — *-gold-*, штор — *-black-* / *-marble-*);
+    // файл без метки относится к цвету без метки (белая «Молния»); общие инфографики (*-common-*) видны всегда
+    var tagOf = function (c) { return /золот/i.test(c) ? /gold/ : /шоколад|мрамор/i.test(c) ? /marble/ : /чёрн|черн/i.test(c) ? /black/ : null; };
     var filterThumbs = function () {
       if (!multiColor) return;
-      var gold = /золот/i.test(pick.c);
-      thumbs.forEach(function (t) { var src = t.getAttribute("data-rh-thumb"); t.hidden = !/common/.test(src) && /gold/.test(src) !== gold; });
+      var tag = tagOf(pick.c), tags = colorList.map(tagOf).filter(Boolean);
+      thumbs.forEach(function (t) {
+        var src = t.getAttribute("data-rh-thumb");
+        t.hidden = !/common/.test(src) && (tag ? !tag.test(src) : tags.some(function (r) { return r.test(src); }));
+      });
       showPhoto(0);
     };
     var drawColors = function () {

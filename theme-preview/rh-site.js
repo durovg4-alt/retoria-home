@@ -48,7 +48,7 @@
       var draw = function (row, key, values, ok) {
         row.innerHTML = values.map(function (v) {
           var off = !ok(v);
-          return '<button type="button" class="choice' + (pick[key] === v ? " selected" : "") + '"' + (off ? ' disabled title="Нет такого размера"' : "") + ' data-v="' + v + '">' + v + "</button>";
+          return '<button type="button" class="choice' + (pick[key] === v ? " selected" : "") + (off ? ' rh-off" title="Нет в этом сочетании — второй размер сбросится"' : '"') + ' data-v="' + v + '">' + v + "</button>";
         }).join("");
       };
       draw(wRow, "w", uniq(opts.map(function (o) { return o.w; })), function (w) { return !pick.h || opts.some(function (o) { return o.w === w && o.h === pick.h; }); });
@@ -57,7 +57,14 @@
     var update = function () {
       var match = opts.filter(function (o) { return o.w === pick.w && o.h === pick.h; })[0];
       var add = $("[data-rh-add]", buy);
-      if (!match) { if (opts.length > 1) { add.disabled = true; add.textContent = "Выберите размер"; } return; }
+      if (!match) {
+        if (opts.length > 1) { add.disabled = true; add.textContent = "Выберите размер"; }
+        select.value = "";
+        $("[data-rh-price]").textContent = start.price; $("[data-rh-old]").textContent = start.old;
+        var d0 = $("[data-rh-disc]"); d0.textContent = start.disc; d0.hidden = !start.disc;
+        $("[data-rh-size]").textContent = start.size;
+        return;
+      }
       select.value = match.el.value;
       var o = match.el;
       $("[data-rh-price]").textContent = o.getAttribute("data-price");
@@ -76,9 +83,11 @@
       if (!row) return;
       row.addEventListener("click", function (e) {
         var b = e.target.closest("button[data-v]");
-        if (!b || b.disabled) return;
-        var key = row === wRow ? "w" : "h";
+        if (!b) return;
+        var key = row === wRow ? "w" : "h", other = key === "w" ? "h" : "w";
         pick[key] = pick[key] === b.getAttribute("data-v") ? null : b.getAttribute("data-v");
+        // такого сочетания нет — сбрасываем второй размер, чтобы выбор не застревал
+        if (pick[key] && pick[other] && !opts.some(function (o) { return o[key] === pick[key] && o[other] === pick[other]; })) pick[other] = null;
         render(); update();
       });
     });
@@ -94,6 +103,7 @@
         $("[data-rh-size]").textContent = "минимальный размер " + cheap.w + " × " + cheap.h + " см";
       }
     }
+    var start = { price: $("[data-rh-price]").textContent, old: $("[data-rh-old]").textContent, disc: $("[data-rh-disc]").hidden ? "" : $("[data-rh-disc]").textContent, size: $("[data-rh-size]").textContent };
 
     var qty = 1, qtyInput = $("[data-rh-qty-input]", buy), qtyVal = $("[data-rh-qty-val]", buy);
     $$("[data-rh-qty]", buy).forEach(function (b) {

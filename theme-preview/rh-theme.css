@@ -86,3 +86,4 @@ body, .layout { background: var(--rh-paper); }
 .rh-contents { display: contents; }
 .rh-site .rh-nophoto { display: grid; place-items: center; width: 100%; aspect-ratio: .78; background: var(--warm); color: var(--muted); font-size: 14px; }
 .rh-site .rh-desc ul { padding-left: 1.2em; }
+.rh-site .choice.rh-off { opacity: .42; }

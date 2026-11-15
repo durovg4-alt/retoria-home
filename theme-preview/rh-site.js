@@ -212,7 +212,7 @@
   // --- корзина: позиции из /cart_items.json, количество — той же формой InSales (cart[quantity][variant_id])
   var cartBox = $("[data-rh-cart]");
   if (cartBox) {
-    var cartForm = $("[data-rh-cart-cartForm]", cartBox), cartList = $("[data-rh-cart-cartList]", cartBox);
+    var cartForm = $("[data-rh-cart-form]", cartBox), cartList = $("[data-rh-cart-list]", cartBox);
     var esc = function (t) { return String(t == null ? "" : t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
     var cartProducts = {};
     var plural = function (n, a, b, c) { return n % 10 === 1 && n % 100 !== 11 ? a : [2, 3, 4].indexOf(n % 10) >= 0 && [12, 13, 14].indexOf(n % 100) < 0 ? b : c; };
@@ -248,7 +248,7 @@
         var ids = (cart.order_lines || []).map(function (l) { return l.product_id; }).filter(function (id) { return !cartProducts[id]; });
         if (!ids.length) return drawCart(cart);
         return fetch("/products_by_id/" + ids.join(",") + ".json").then(function (r) { return r.json(); }).then(function (j) {
-          (j.cartProducts || []).forEach(function (p) { cartProducts[p.id] = { url: p.url, title: p.title, image: p.first_image && (p.first_image.medium_url || p.first_image.large_url) }; });
+          (j.products || []).forEach(function (p) { cartProducts[p.id] = { url: p.url, title: p.title, image: p.first_image && (p.first_image.medium_url || p.first_image.large_url) }; });
         }).catch(function () {}).then(function () { drawCart(cart); });
       }).catch(function () { cartList.innerHTML = '<p class="warn">Не удалось загрузить корзину. Обновите страницу.</p>'; cartForm.hidden = false; });
     };

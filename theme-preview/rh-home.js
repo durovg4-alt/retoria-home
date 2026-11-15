@@ -1,6 +1,6 @@
 // RETORIA HOME: анимации главной (перенесены из прототипа, src/main.js initMotion / initCategoryGallery).
 (function () {
-  var root = document.querySelector(".rh-site");
+  var root = document.querySelector(".exact-home"); // шапка тоже .rh-site, поэтому ищем саму главную
   if (!root) return;
 
   // «до / после» и подписка работают и без анимаций

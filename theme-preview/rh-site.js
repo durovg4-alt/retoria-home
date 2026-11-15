@@ -7,6 +7,8 @@
   var rub = function (n) { return Math.round(n).toLocaleString("ru-RU") + " ₽"; };
   var num = function (v) { return parseFloat(v) || 0; };
   var pct = function (price, old) { return old > price ? Math.round((old - price) / old * 100) : 0; };
+  // название варианта InSales: «[цвет /] ширина / высота» — берём два последних значения (у комплектов перед размером стоит цвет)
+  var sizeOf = function (title) { var p = String(title).split("/").map(function (s) { return s.trim(); }); return { w: p[p.length - 2], h: p[p.length - 1] }; };
 
   // параметры товара из JSON: { "Затемнение": "Полупрозрачный", ... } в порядке InSales
   var specsOf = function (p) {
@@ -22,7 +24,10 @@
   // shortcut: цвета нет в параметрах InSales — берём из параметра «Цвет», если его добавят, иначе по названию; добавить «Параметр: Цвет» в импорт
   var colorOf = function (list, title) {
     var c = spec(list, "Цвет");
+    if (c && /\+/.test(c)) return { name: c, hex: "linear-gradient(90deg, #1f1e1b 50%, #f4f2ec 50%)" }; // «Чёрные шторы + белый тюль»
     if (c) return { name: c, hex: /чёрн|черн/i.test(c) ? "#1f1e1b" : "#f4f2ec" };
+    // у комплектов цвет при импорте стал свойством варианта, а не параметром — все комплекты: чёрные шторы + белый тюль
+    if (/^Комплект/.test(title)) return { name: "Чёрные шторы + белый тюль", hex: "linear-gradient(90deg, #1f1e1b 50%, #f4f2ec 50%)" };
     if (/^Комплект/.test(title) && /чёрн|черн/i.test(title)) return { name: "Белый тюль + чёрные шторы", hex: "linear-gradient(90deg, #f4f2ec 50%, #1f1e1b 50%)" };
     return /чёрн|черн/i.test(title) && !/^Комплект/.test(title) ? { name: "№ 08 Чёрный", hex: "#1f1e1b" } : { name: "№ 01 Белый", hex: "#f4f2ec" };
   };
@@ -66,8 +71,8 @@
 
     var select = $("[data-rh-variants]", buy);
     var opts = Array.prototype.slice.call(select.options).map(function (o) {
-      var p = o.getAttribute("data-title").split("/").map(function (s) { return s.trim(); });
-      return { el: o, w: p[0], h: p[1], price: num(o.getAttribute("data-p")), old: num(o.getAttribute("data-o")), sku: o.getAttribute("data-sku"), available: o.getAttribute("data-available") !== "false" };
+      var p = sizeOf(o.getAttribute("data-title"));
+      return { el: o, w: p.w, h: p.h, price: num(o.getAttribute("data-p")), old: num(o.getAttribute("data-o")), sku: o.getAttribute("data-sku"), available: o.getAttribute("data-available") !== "false" };
     });
     var cheap = opts.slice().sort(function (a, b) { return a.price - b.price || a.w * a.h - b.w * b.h; })[0];
     var fastening = "";
@@ -130,7 +135,8 @@
         render(); update();
       });
     });
-    if (opts.length === 1) { pick.w = opts[0].w; pick.h = opts[0].h; }
+    // заказчик 2026-11-16: сразу выбран минимальный размер (самый дешёвый, при равной цене — самый маленький)
+    if (cheap) { pick.w = cheap.w; pick.h = cheap.h; }
     render(); update();
 
     // характеристики, цвет, крепление — из JSON товара
@@ -173,7 +179,7 @@
     cards.forEach(function (c) {
       // варианты «ширина/высота|цена|старая цена;» — цену карточки берём у самого дешёвого
       var vars = c.getAttribute("data-variants").split(";").filter(Boolean).map(function (s) {
-        var p = s.split("|"), wh = p[0].split("/").map(Number);
+        var p = s.split("|"), z = sizeOf(p[0]), wh = [Number(z.w), Number(z.h)];
         return { w: wh[0], h: wh[1], price: num(p[1]), old: num(p[2]) };
       });
       c._sizes = vars.map(function (v) { return [v.w, v.h]; });

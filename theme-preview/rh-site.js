@@ -8,7 +8,7 @@
   var num = function (v) { return parseFloat(v) || 0; };
   var pct = function (price, old) { return old > price ? Math.round((old - price) / old * 100) : 0; };
   // название варианта InSales: «[цвет /] ширина / высота» — берём два последних значения (у комплектов перед размером стоит цвет)
-  var sizeOf = function (title) { var p = String(title).split("/").map(function (s) { return s.trim(); }); return { w: p[p.length - 2], h: p[p.length - 1] }; };
+  var sizeOf = function (title) { var p = String(title).split("/").map(function (s) { return s.trim(); }); return { c: p.slice(0, -2).join(" / "), w: p[p.length - 2], h: p[p.length - 1] }; };
 
   // параметры товара из JSON: { "Затемнение": "Полупрозрачный", ... } в порядке InSales
   var specsOf = function (p) {
@@ -58,21 +58,24 @@
     var isKit = /^Комплект/.test(title);
     var main = $("[data-rh-main]");
     var thumbs = $$("[data-rh-thumb]");
+    // листаем только видимые миниатюры (у «Молнии» видны фото выбранного цвета)
+    var visible = function () { return thumbs.filter(function (t) { return !t.hidden; }); };
     var showPhoto = function (i) {
-      if (!thumbs.length) return;
-      i = (i + thumbs.length) % thumbs.length;
-      thumbs.forEach(function (t, k) { t.classList.toggle("active", k === i); });
-      main.src = thumbs[i].getAttribute("data-rh-thumb");
+      var v = visible();
+      if (!v.length) return;
+      i = (i + v.length) % v.length;
+      thumbs.forEach(function (t) { t.classList.toggle("active", t === v[i]); });
+      main.src = v[i].getAttribute("data-rh-thumb");
     };
-    var current = function () { return Math.max(0, thumbs.findIndex(function (t) { return t.classList.contains("active"); })); };
-    thumbs.forEach(function (t, i) { t.addEventListener("click", function () { showPhoto(i); }); });
+    var current = function () { return Math.max(0, visible().findIndex(function (t) { return t.classList.contains("active"); })); };
+    thumbs.forEach(function (t) { t.addEventListener("click", function () { showPhoto(visible().indexOf(t)); }); });
     $$("[data-rh-step]").forEach(function (b) { b.addEventListener("click", function () { showPhoto(current() + Number(b.getAttribute("data-rh-step"))); }); });
     main.addEventListener("click", function () { showPhoto(current() + 1); });
 
     var select = $("[data-rh-variants]", buy);
     var opts = Array.prototype.slice.call(select.options).map(function (o) {
       var p = sizeOf(o.getAttribute("data-title"));
-      return { el: o, w: p.w, h: p.h, price: num(o.getAttribute("data-p")), old: num(o.getAttribute("data-o")), sku: o.getAttribute("data-sku"), available: o.getAttribute("data-available") !== "false" };
+      return { el: o, c: p.c, w: p.w, h: p.h, price: num(o.getAttribute("data-p")), old: num(o.getAttribute("data-o")), sku: o.getAttribute("data-sku"), available: o.getAttribute("data-available") !== "false" };
     });
     var cheap = opts.slice().sort(function (a, b) { return a.price - b.price || a.w * a.h - b.w * b.h; })[0];
     var fastening = "";
@@ -85,7 +88,27 @@
       return "1 полотно " + size + (fastening ? ", " + fastening.toLowerCase() : "");
     };
     var wRow = $('[data-rh-opt="w"]'), hRow = $('[data-rh-opt="h"]');
-    var pick = { w: null, h: null };
+    var pick = { c: "", w: null, h: null };
+    // цвет как свойство варианта («Белый» / «Белый с золотом» у «Молнии»): кликабельные образцы
+    var colorList = opts.map(function (o) { return o.c; }).filter(function (c, i, a) { return c && a.indexOf(c) === i; });
+    var multiColor = colorList.length > 1;
+    var hexOf = function (c) { return /золот/i.test(c) ? "linear-gradient(135deg, #f4f2ec 55%, #c9a24a 55%)" : /чёрн|черн/i.test(c) ? "#1f1e1b" : "#f4f2ec"; };
+    var inColor = function (o) { return !multiColor || o.c === pick.c; };
+    // фото по цвету: у золотой «Молнии» файлы *-gold-*, общие инфографики (*-common-*) видны всегда
+    var filterThumbs = function () {
+      if (!multiColor) return;
+      var gold = /золот/i.test(pick.c);
+      thumbs.forEach(function (t) { var src = t.getAttribute("data-rh-thumb"); t.hidden = !/common/.test(src) && /gold/.test(src) !== gold; });
+      showPhoto(0);
+    };
+    var drawColors = function () {
+      if (!multiColor) return;
+      $("[data-rh-color]").hidden = false;
+      $("[data-rh-color-name]").textContent = pick.c;
+      $("[data-rh-color] .swatches").innerHTML = colorList.map(function (c) {
+        return '<button type="button" class="swatch' + (c === pick.c ? " selected" : "") + '" aria-pressed="' + (c === pick.c) + '" aria-label="' + c + '" title="' + c + '" data-c="' + c + '" style="background:' + hexOf(c) + '"></button>';
+      }).join("");
+    };
     var uniq = function (arr) { return arr.filter(function (v, i) { return v && arr.indexOf(v) === i; }).sort(function (a, b) { return a - b; }); };
     var render = function () {
       if (!wRow) return;
@@ -95,8 +118,9 @@
           return '<button type="button" class="choice' + (pick[key] === v ? " selected" : "") + (off ? ' rh-off" title="Нет в этом сочетании — второй размер сбросится"' : '"') + ' data-v="' + v + '">' + v + "</button>";
         }).join("");
       };
-      draw(wRow, "w", uniq(opts.map(function (o) { return o.w; })), function (w) { return !pick.h || opts.some(function (o) { return o.w === w && o.h === pick.h; }); });
-      draw(hRow, "h", uniq(opts.map(function (o) { return o.h; })), function (h) { return !pick.w || opts.some(function (o) { return o.h === h && o.w === pick.w; }); });
+      var cOpts = opts.filter(inColor);
+      draw(wRow, "w", uniq(cOpts.map(function (o) { return o.w; })), function (w) { return !pick.h || cOpts.some(function (o) { return o.w === w && o.h === pick.h; }); });
+      draw(hRow, "h", uniq(cOpts.map(function (o) { return o.h; })), function (h) { return !pick.w || cOpts.some(function (o) { return o.h === h && o.w === pick.w; }); });
     };
     var showPrice = function (o, from) {
       $("[data-rh-price]").textContent = (from ? "от " : "") + rub(o.price);
@@ -105,7 +129,7 @@
       d.hidden = !p; d.textContent = p ? "−" + p + "%" : "";
     };
     var update = function () {
-      var match = opts.filter(function (o) { return o.w === pick.w && o.h === pick.h; })[0];
+      var match = opts.filter(function (o) { return inColor(o) && o.w === pick.w && o.h === pick.h; })[0];
       var add = $("[data-rh-add]", buy);
       $("[data-rh-get]").textContent = getText(match);
       if (!match) {
@@ -136,18 +160,27 @@
       });
     });
     // заказчик 2026-11-16: сразу выбран минимальный размер (самый дешёвый, при равной цене — самый маленький)
-    if (cheap) { pick.w = cheap.w; pick.h = cheap.h; }
-    render(); update();
+    if (cheap) { pick.c = cheap.c; pick.w = cheap.w; pick.h = cheap.h; }
+    filterThumbs(); drawColors(); render(); update();
+    if (multiColor) $("[data-rh-color]").addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-c]");
+      if (!b) return;
+      pick.c = b.getAttribute("data-c");
+      if (!opts.some(function (o) { return inColor(o) && o.w === pick.w && o.h === pick.h; })) { pick.w = null; pick.h = null; }
+      filterThumbs(); drawColors(); render(); update();
+    });
 
     // характеристики, цвет, крепление — из JSON товара
     fetch(root.getAttribute("data-rh-product") + ".json").then(function (r) { return r.json(); }).then(function (j) {
       var list = specsOf(j.product || {});
       var light = lightLabel(spec(list, "Затемнение")), rooms = spec(list, "Помещение");
       $("[data-rh-facts]").innerHTML = [light, rooms].filter(Boolean).map(function (t) { return "<span>" + t + "</span>"; }).join("");
-      var color = colorOf(list, title);
-      $("[data-rh-color-name]").textContent = color.name;
-      var sw = $("[data-rh-swatch]"); sw.style.background = color.hex; sw.setAttribute("aria-label", color.name);
-      $("[data-rh-color]").hidden = false;
+      if (!multiColor) {
+        var color = colorOf(list, title);
+        $("[data-rh-color-name]").textContent = color.name;
+        var sw = $("[data-rh-swatch]"); sw.style.background = color.hex; sw.setAttribute("aria-label", color.name);
+        $("[data-rh-color]").hidden = false;
+      }
       fastening = spec(list, "Крепление") || (isKit ? "Шторная лента" : "");
       if (fastening) { $("[data-rh-fastening-val]").textContent = fastening; $("[data-rh-fastening]").hidden = false; }
       if (!isKit && !spec(list, "Комплект")) { $("[data-rh-panels-val]").textContent = "Одно полотно"; $("[data-rh-panels]").hidden = false; }

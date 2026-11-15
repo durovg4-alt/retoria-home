@@ -9,6 +9,8 @@
     var toggle = $("[data-menu]", head);
     toggle.addEventListener("click", function () {
       var open = !head.classList.contains("menu-open");
+      // меню открывается сразу под шапкой (в CSS прототипа top: var(--menu-top))
+      $(".mobile-menu", head).style.setProperty("--menu-top", Math.max(0, $(".header", head).getBoundingClientRect().bottom) + "px");
       head.classList.toggle("menu-open", open);
       document.documentElement.style.overflow = open ? "hidden" : "";
       toggle.setAttribute("aria-expanded", open);

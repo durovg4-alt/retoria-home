@@ -23,6 +23,7 @@
   var colorOf = function (list, title) {
     var c = spec(list, "Цвет");
     if (c) return { name: c, hex: /чёрн|черн/i.test(c) ? "#1f1e1b" : "#f4f2ec" };
+    if (/^Комплект/.test(title) && /чёрн|черн/i.test(title)) return { name: "Белый тюль + чёрные шторы", hex: "linear-gradient(90deg, #f4f2ec 50%, #1f1e1b 50%)" };
     return /чёрн|черн/i.test(title) && !/^Комплект/.test(title) ? { name: "№ 08 Чёрный", hex: "#1f1e1b" } : { name: "№ 01 Белый", hex: "#f4f2ec" };
   };
 

@@ -96,3 +96,12 @@ body, .layout { background: var(--rh-paper); }
 .rh-site .rh-try-soon { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; padding-block: 40px 80px; }
 .rh-site .rh-try-soon .comparison { min-height: 420px; }
 @media (max-width: 860px) { .rh-site .rh-try-soon { grid-template-columns: 1fr; } .rh-site .rh-try-soon .comparison { min-height: 300px; } }
+/* миниатюры другого цвета прячем (у «Молнии» белая и золотая) */
+.rh-site .thumb[hidden] { display: none !important; }
+
+/* корзина */
+.rh-site .rh-cart { padding-top: 25px; }
+.rh-site .rh-coupon { margin: 18px 0 14px; }
+.rh-site .rh-coupon-row { display: flex; gap: 8px; align-items: center; }
+.rh-site .rh-coupon-row input { flex: 1; min-width: 0; }
+.rh-site .cart-item .rh-nophoto { width: 110px; aspect-ratio: .84; font-size: 12px; border-radius: 16px; }

@@ -209,6 +209,60 @@
     buy.addEventListener("submit", function (e) { if (!select.value || $("[data-rh-add]", buy).disabled) e.preventDefault(); });
   }
 
+  // --- корзина: позиции из /cart_items.json, количество — той же формой InSales (cart[quantity][variant_id])
+  var cartBox = $("[data-rh-cart]");
+  if (cartBox) {
+    var form = $("[data-rh-cart-form]", cartBox), list = $("[data-rh-cart-list]", cartBox);
+    var esc = function (t) { return String(t == null ? "" : t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+    var products = {};
+    var plural = function (n, a, b, c) { return n % 10 === 1 && n % 100 !== 11 ? a : [2, 3, 4].indexOf(n % 10) >= 0 && [12, 13, 14].indexOf(n % 100) < 0 ? b : c; };
+    // «Название (Цвет / 150 / 220)» → «Цвет · 150 × 220 см»
+    var variantText = function (title) {
+      var m = String(title).match(/\(([^()]*)\)\s*$/); if (!m) return "";
+      var p = m[1].split("/").map(function (x) { return x.trim(); }), h = p.pop(), w = p.pop();
+      return (p.length ? p.join(" / ") + " · " : "") + (w && h ? w + " × " + h + " см" : m[1]);
+    };
+    var draw = function (cart) {
+      var lines = cart.order_lines || [];
+      var count = $("[data-cart-count]"); if (count) count.textContent = cart.items_count || 0;
+      $("[data-rh-cart-empty]", cartBox).hidden = lines.length > 0;
+      form.hidden = !lines.length;
+      if (!lines.length) return;
+      list.innerHTML = lines.map(function (l) {
+        var pr = products[l.product_id] || {}, img = pr.image || (l.image_url && l.image_url.indexOf("no_image") < 0 ? l.image_url : "");
+        var name = pr.title || String(l.title).replace(/\s*\([^()]*\)\s*$/, "");
+        return '<article class="cart-item">' + (img ? '<img src="' + esc(img) + '" alt="' + esc(name) + '">' : '<span class="rh-nophoto">Фото скоро</span>') +
+          '<div><h3><a href="' + esc(pr.url || "#") + '">' + esc(name) + '</a></h3><span class="muted">' + esc(variantText(l.title)) + '</span>' +
+          '<div class="actions"><div class="qty"><button type="button" data-rh-q="' + l.variant_id + '" data-d="-1" aria-label="Меньше">−</button><span>' + l.quantity + '</span><button type="button" data-rh-q="' + l.variant_id + '" data-d="1" aria-label="Больше">+</button></div>' +
+          '<button type="button" class="muted" data-rh-q="' + l.variant_id + '" data-set="0">Удалить</button></div>' +
+          '<input type="hidden" name="cart[quantity][' + l.variant_id + ']" value="' + l.quantity + '"></div>' +
+          '<strong class="price">' + rub(l.sale_price * l.quantity) + '</strong></article>';
+      }).join("");
+      var qty = lines.reduce(function (n, l) { return n + l.quantity; }, 0);
+      $("[data-rh-cart-count]", cartBox).textContent = "Товары, " + qty + " " + plural(qty, "шт.", "шт.", "шт.");
+      $("[data-rh-cart-items]", cartBox).textContent = rub(cart.items_price);
+      $("[data-rh-cart-total]", cartBox).textContent = rub(cart.total_price);
+    };
+    var load = function () {
+      return fetch("/cart_items.json", { headers: { Accept: "application/json" } }).then(function (r) { return r.json(); }).then(function (cart) {
+        var ids = (cart.order_lines || []).map(function (l) { return l.product_id; }).filter(function (id) { return !products[id]; });
+        if (!ids.length) return draw(cart);
+        return fetch("/products_by_id/" + ids.join(",") + ".json").then(function (r) { return r.json(); }).then(function (j) {
+          (j.products || []).forEach(function (p) { products[p.id] = { url: p.url, title: p.title, image: p.first_image && (p.first_image.medium_url || p.first_image.large_url) }; });
+        }).catch(function () {}).then(function () { draw(cart); });
+      }).catch(function () { list.innerHTML = '<p class="warn">Не удалось загрузить корзину. Обновите страницу.</p>'; form.hidden = false; });
+    };
+    list.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-rh-q]"); if (!b) return;
+      var input = form.querySelector('[name="cart[quantity][' + b.getAttribute("data-rh-q") + ']"]');
+      var q = b.hasAttribute("data-set") ? 0 : Math.max(0, Number(input.value) + Number(b.getAttribute("data-d")));
+      b.disabled = true;
+      var body = new URLSearchParams(); body.append("_method", "put"); body.append("cart[quantity][" + b.getAttribute("data-rh-q") + "]", q);
+      fetch("/cart_items.json", { method: "POST", body: body, headers: { Accept: "application/json" } }).then(load, load);
+    });
+    load();
+  }
+
   // --- каталог: фильтры и сортировка по карточкам на странице
   var form = $("[data-rh-filter]");
   if (form) {

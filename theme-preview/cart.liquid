@@ -1,0 +1,27 @@
+{%- comment -%}
+  RETORIA HOME: корзина как в прототипе (шаги, позиции, «Ваш заказ»). Позиции рисует rh-site.js по /cart_items.json;
+  количество меняется той же формой InSales (POST /cart_items, _method=put, cart[quantity][variant_id]),
+  «Оформить заказ» — обычная отправка формы с make_order: InSales переводит на своё оформление (/gocheckout).
+{%- endcomment -%}
+<div class="rh-site">
+<div class="page">
+  <nav class="shell breadcrumb" aria-label="Хлебные крошки"><a href="/">Главная</a> / <span aria-current="page">Корзина</span></nav>
+  <div class="shell flow-header"><div><p class="eyebrow">Оформление заказа</p><h1 class="section-title small">Корзина</h1></div><div class="steps"><span class="step active">01 Корзина</span><span class="step">02 Доставка</span><span class="step">03 Оплата</span></div></div>
+  <section class="section compact shell rh-cart" data-rh-cart>
+    <div class="empty-state" data-rh-cart-empty hidden><h2>Корзина пуста</h2><p>Начните с готового решения для комнаты — так проще всего.</p><div class="row-actions"><a class="pill primary" href="/page/solutions">Готовые решения</a><a class="pill" href="/collection/all">Каталог</a></div></div>
+    <form class="checkout-layout" action="{{ cart_url }}" method="post" data-rh-cart-form hidden>
+      <input type="hidden" name="_method" value="put">
+      <div><div class="cart-list" data-rh-cart-list><p class="muted">Загружаем корзину…</p></div></div>
+      <div class="summary" data-summary>
+        <h2>Ваш заказ</h2>
+        <div class="summary-row"><span data-rh-cart-count>Товары</span><strong data-rh-cart-items></strong></div>
+        <div class="summary-row"><span>Доставка</span><strong>на следующем шаге</strong></div>
+        <div class="summary-row total"><span>Итого</span><span data-rh-cart-total></span></div>
+        <div class="field rh-coupon"><label for="rh-coupon">Промокод</label><div class="rh-coupon-row"><input id="rh-coupon" name="cart[coupon]" autocomplete="off"><button type="submit" class="pill" name="rh_coupon" value="1">Применить</button></div></div>
+        <button type="submit" class="pill primary" name="make_order" value="1">Оформить заказ <span aria-hidden="true">→</span></button>
+        <p class="muted small">Изделия по индивидуальным размерам оплачиваются после подтверждения замеров мастером.</p>
+      </div>
+    </form>
+  </section>
+</div>
+</div>

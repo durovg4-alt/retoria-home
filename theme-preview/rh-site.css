@@ -1173,3 +1173,11 @@
 @supports (grid-template-rows: subgrid){.rh-site .product-grid>.product-card .product-meta>*{margin-inline:3px}}
 @media(max-width:900px),(prefers-reduced-motion:reduce){.rh-site .exact-category-track, .rh-site .exact-category-slide{transform-style:flat;will-change:auto}
 .rh-site .exact-category-track{-webkit-overflow-scrolling:touch}}
+/* RETORIA: стандартные отступы браузера внутри наших блоков — прототип на них опирается, а база InSales их обнуляет.
+   :where() не повышает специфичность, поэтому любые правила прототипа выше по-прежнему главнее. */
+:where(.rh-site) p, :where(.rh-site) dl, :where(.rh-site) blockquote { margin: 1em 0; }
+:where(.rh-site) h1 { margin: .67em 0; } :where(.rh-site) h2 { margin: .83em 0; } :where(.rh-site) h3 { margin: 1em 0; } :where(.rh-site) h4 { margin: 1.33em 0; }
+:where(.rh-site) :is(h1, h2, h3, h4) { letter-spacing: normal; line-height: normal; }
+:where(.rh-site) :is(ul, ol) { margin: 1em 0; padding-left: 40px; }
+:where(.rh-site) dd { margin-left: 40px; }
+:where(.rh-site) figure { margin: 1em 40px; }

@@ -1,3 +1,12 @@
+/* RETORIA: стандартные отступы браузера внутри наших блоков — прототип на них опирается, а core-css InSales их обнуляет
+   (p{margin-top:0}) и грузится позже. .rh-site p (0,1,1) сильнее базы InSales, но слабее классов прототипа; стоит в начале файла,
+   поэтому собственные правила прототипа для тегов (той же силы) идут ниже и главнее. */
+.rh-site p, .rh-site dl, .rh-site blockquote { margin: 1em 0; }
+.rh-site h1 { margin: .67em 0; } .rh-site h2 { margin: .83em 0; } .rh-site h3 { margin: 1em 0; } .rh-site h4 { margin: 1.33em 0; }
+.rh-site h1, .rh-site h2, .rh-site h3, .rh-site h4 { letter-spacing: normal; line-height: normal; }
+.rh-site ul, .rh-site ol { margin: 1em 0; padding-left: 40px; }
+.rh-site dd { margin-left: 40px; }
+.rh-site figure { margin: 1em 40px; }
 .rh-site.lenis, .rh-site.lenis body{height:auto}
 .rh-site .lenis:not(.lenis-autoToggle).lenis-stopped{overflow:clip}
 .rh-site .lenis [data-lenis-prevent], .rh-site .lenis [data-lenis-prevent-wheel], .rh-site .lenis [data-lenis-prevent-touch], .rh-site .lenis [data-lenis-prevent-vertical], .rh-site .lenis [data-lenis-prevent-horizontal]{overscroll-behavior:contain}
@@ -1173,11 +1182,3 @@
 @supports (grid-template-rows: subgrid){.rh-site .product-grid>.product-card .product-meta>*{margin-inline:3px}}
 @media(max-width:900px),(prefers-reduced-motion:reduce){.rh-site .exact-category-track, .rh-site .exact-category-slide{transform-style:flat;will-change:auto}
 .rh-site .exact-category-track{-webkit-overflow-scrolling:touch}}
-/* RETORIA: стандартные отступы браузера внутри наших блоков — прототип на них опирается, а база InSales их обнуляет.
-   :where() не повышает специфичность, поэтому любые правила прототипа выше по-прежнему главнее. */
-:where(.rh-site) p, :where(.rh-site) dl, :where(.rh-site) blockquote { margin: 1em 0; }
-:where(.rh-site) h1 { margin: .67em 0; } :where(.rh-site) h2 { margin: .83em 0; } :where(.rh-site) h3 { margin: 1em 0; } :where(.rh-site) h4 { margin: 1.33em 0; }
-:where(.rh-site) :is(h1, h2, h3, h4) { letter-spacing: normal; line-height: normal; }
-:where(.rh-site) :is(ul, ol) { margin: 1em 0; padding-left: 40px; }
-:where(.rh-site) dd { margin-left: 40px; }
-:where(.rh-site) figure { margin: 1em 40px; }

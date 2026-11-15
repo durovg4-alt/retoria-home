@@ -1,6 +1,6 @@
 {%- comment -%}
   RETORIA HOME: каталог как в прототипе. Фильтры и сортировка работают в браузере (rh-site.js) по data-атрибутам карточек:
-  комната и затемнение берутся из параметров товара, размеры — из названий вариантов «ширина / высота».
+  комната и затемнение берутся из JSON категории, размеры — из названий вариантов «ширина / высота».
   shortcut: фильтрует только товары текущей страницы категории; если товаров станет больше, чем «товаров на странице» в настройках, — увеличить это число.
 {%- endcomment -%}
 <div class="rh-site">
@@ -45,16 +45,14 @@
         <label class="sort"><span class="sr-only">Сортировка</span><select data-rh-sort><option value="popular">Популярные</option><option value="cheap">Сначала дешевле</option><option value="expensive">Сначала дороже</option></select></label></div>
       <div class="product-grid" data-rh-grid>
         {%- for product in collection.products -%}
-                    {%- capture rooms -%}{%- for property in product.properties -%}{%- if property.title == 'Помещение' -%}{%- for c in product.characteristics -%}{%- if c.property_id == property.id -%}{{ c.title }},{%- endif -%}{%- endfor -%}{%- endif -%}{%- endfor -%}{%- endcapture -%}
-          {%- capture blackout -%}{%- for property in product.properties -%}{%- if property.title == 'Затемнение' -%}{%- for c in product.characteristics -%}{%- if c.property_id == property.id -%}{{ c.title }}{%- endif -%}{%- endfor -%}{%- endif -%}{%- endfor -%}{%- endcapture -%}
-          <article class="product-card" data-rh-card data-index="{{ forloop.index }}" data-price="{{ product.price_min }}" data-rooms="{{ rooms }}" data-blackout="{{ blackout }}" data-variants="{% for v in product.variants %}{{ v.title | replace: ' ', '' }}|{{ v.price }}|{{ v.old_price }};{% endfor %}">
+          <article class="product-card" data-rh-card data-index="{{ forloop.index }}" data-price="{{ product.price_min }}" data-url="{{ product.url }}" data-variants="{% for v in product.variants %}{{ v.title | replace: ' ', '' }}|{{ v.price }}|{{ v.old_price }};{% endfor %}">
             <div class="media"><a href="{{ product.url }}" aria-label="{{ product.title | escape }}">{% if product.first_image %}<img src="{{ product.first_image.large_url }}" alt="{{ product.title | escape }}" loading="lazy">{% else %}<span class="rh-nophoto">Фото скоро</span>{% endif %}</a>
               <a class="quick-add icon-btn" href="{{ product.url }}" aria-label="Выбрать размер: {{ product.title | escape }}"><span aria-hidden="true">＋</span></a></div>
             <div class="product-meta">
               <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
               <div class="card-price"><strong data-rh-card-price>{% if product.variants.size > 1 %}от {% endif %}{{ product.price_min | money }}</strong><span class="discount" data-rh-card-disc hidden></span></div>
               <div class="card-price-sub"><s data-rh-card-old></s><span data-rh-card-size></span></div>
-              <div class="card-specs">{% if blackout != '' %}<div class="card-spec-row"><span>{{ blackout }}</span></div>{% endif %}<div class="card-spec-row card-sizes" data-rh-size-range></div></div>
+              <div class="card-specs"><div class="card-spec-row" hidden><span data-rh-card-light></span></div><div class="card-spec-row card-sizes" data-rh-size-range></div></div>
             </div>
           </article>
         {%- endfor -%}

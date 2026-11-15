@@ -1,5 +1,30 @@
-<div class="layout" style="margin-top: 2rem; margin-bottom: 2rem;">
-  <div class="layout__content page-404">
-    {{ messages.page_404 }}
+{%- comment -%}
+  RETORIA HOME: если страницу ещё не создали в админке (/page/sew и т.п.), InSales отдаёт 404 —
+  тогда показываем нужную страницу прототипа по адресу. Скрипт ниже открывает блок с data-rh-route == адрес.
+  shortcut: такие страницы отдаются с кодом 404 (плохо для поиска) — создать страницы в админке с адресами solutions, sew, fabrics, measure, help, tryon.
+{%- endcomment -%}
+<div class="rh-site"><div class="page">
+  <div data-rh-route="/page/solutions" hidden>{% include "rh_page_solutions" %}</div>
+  <div data-rh-route="/page/sew" hidden>{% include "rh_page_sew" %}</div>
+  <div data-rh-route="/page/fabrics" hidden>{% include "rh_page_fabrics" %}{% include "rh_page_samples" %}</div>
+  <div data-rh-route="/page/measure" hidden>{% include "rh_page_measure" %}</div>
+  <div data-rh-route="/page/help" hidden>{% include "rh_page_help" %}</div>
+  <div data-rh-route="/page/tryon" hidden>{% include "rh_page_tryon" %}</div>
+  <div data-rh-route="404">
+    <nav class="shell breadcrumb" aria-label="Хлебные крошки"><a href="/">Главная</a> / <span aria-current="page">Страница не найдена</span></nav>
+    <section class="shell page-head"><h1 class="section-title">Страница не найдена</h1><p class="lede">Возможно, адрес изменился или в нём опечатка. Начните с каталога или напишите нам — подскажем.</p>
+      <div class="row-actions"><a class="pill primary" href="/collection/all">Перейти в каталог</a><a class="pill" href="/page/contacts">Контакты</a></div></section>
   </div>
-</div>
+</div></div>
+<script>
+  (function () {
+    var path = location.pathname.replace(/\/$/, "");
+    var box = document.querySelector('[data-rh-route="' + path + '"]');
+    if (!box) return;
+    box.hidden = false;
+    document.querySelector('[data-rh-route="404"]').remove();
+    // остальные скрытые страницы убираем, чтобы скрипты и формы не видели лишнего
+    Array.prototype.forEach.call(document.querySelectorAll("[data-rh-route][hidden]"), function (el) { el.remove(); });
+    var h1 = box.querySelector("h1"); if (h1) document.title = h1.textContent.trim() + " — Retoria Home";
+  })();
+</script>

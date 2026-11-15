@@ -6,7 +6,7 @@
 {%- assign sidebar_type = settings.type_sidebar | default: 'normal' -%}
 {%- assign sidebar_position = settings[setting_position] -%}
 {%- comment -%} RETORIA: на главной, в каталоге и в товаре свои фильтры и шапка страницы — без колонки и верхних блоков InSales {%- endcomment -%}
-{%- assign rh_own = false -%}{%- if template == 'index' or template contains 'collection' or template contains 'product' or template == 'page' -%}{%- assign rh_own = true -%}{%- assign sidebar_show = false -%}{%- endif -%}
+{%- assign rh_own = false -%}{%- if template == 'index' or template contains 'collection' or template contains 'product' or template == 'page' or template contains '404' -%}{%- assign rh_own = true -%}{%- assign sidebar_show = false -%}{%- endif -%}
 
 <!DOCTYPE html>
 <html
@@ -143,6 +143,6 @@
   <script src="{{ 'rh-home.js' | asset_url }}"></script>
   {%- endif -%}
   <script src="{{ 'rh-site.js' | asset_url }}"></script>
-  {%- if template == "page" -%}<script src="{{ 'rh-pages.js' | asset_url }}"></script>{%- endif -%}
+  {%- if template == "page" or template contains "404" -%}<script src="{{ 'rh-pages.js' | asset_url }}"></script>{%- endif -%}
   </body>
 </html>

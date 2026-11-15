@@ -7,6 +7,7 @@
 .rh-site ul, .rh-site ol { margin: 1em 0; padding-left: 40px; }
 .rh-site dd { margin-left: 40px; }
 .rh-site figure { margin: 1em 40px; }
+.rh-site input[type="checkbox"], .rh-site input[type="radio"] { margin: 3px 3px 3px 4px; }
 .rh-site.lenis, .rh-site.lenis body{height:auto}
 .rh-site .lenis:not(.lenis-autoToggle).lenis-stopped{overflow:clip}
 .rh-site .lenis [data-lenis-prevent], .rh-site .lenis [data-lenis-prevent-wheel], .rh-site .lenis [data-lenis-prevent-touch], .rh-site .lenis [data-lenis-prevent-vertical], .rh-site .lenis [data-lenis-prevent-horizontal]{overscroll-behavior:contain}

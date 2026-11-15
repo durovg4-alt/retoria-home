@@ -1,0 +1,23 @@
+{%- comment -%} RETORIA HOME: шапка как в прототипе. display:contents — чтобы шапка липла к верху страницы. {%- endcomment -%}
+<div class="rh-site rh-contents" data-rh-header>
+  <div class="service-bar"><span>Доставка по всей России · Пошив по вашим размерам · Помощь мастера по фото окна</span></div>
+  <header class="header">
+    <div class="shell nav">
+      <button class="icon-btn menu-toggle" data-menu aria-label="Открыть меню" aria-expanded="false"><svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></button>
+      <a class="brand" href="/" aria-label="Retoria Home, на главную">RETORIA<span>HOME</span></a>
+      <nav class="nav-links" aria-label="Основная навигация">
+        <div class="nav-drop"><a href="/collection/all"{% if template contains 'collection' %} class="active"{% endif %}>Каталог</a><div class="nav-drop-panel"><a href="/collection/shtory">Шторы</a><a href="/collection/tyul">Тюль</a><a href="/collection/komplekty-na-okno">Комплекты на окно</a><a class="all" href="/collection/all">Весь каталог <span aria-hidden="true">→</span></a></div></div>
+        <a href="/collection/komplekty-na-okno" class="nav-accent">Готовые решения</a><a href="/page/contacts">Пошив по размерам</a><a href="/collection/tyul">Ткани и образцы</a><a href="/page/delivery">Покупателям</a><a href="/page/about-us">О бренде</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="/search" class="icon-btn search" aria-label="Поиск"><svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg></a>
+        <a href="/favorites" class="icon-btn heart" aria-label="Избранное"><svg class="icon" viewBox="0 0 24 24"><path d="M20.8 4.7a5.5 5.5 0 0 0-7.8 0L12 5.8l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.4 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"></path></svg></a>
+        <a href="/client_account/login" class="icon-btn account" aria-label="Личный кабинет"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"></path></svg></a>
+        <a href="/cart_items" class="icon-btn" aria-label="Корзина"><svg class="icon" viewBox="0 0 24 24"><path d="M6 8h12l1 13H5L6 8Z"></path><path d="M9 9V6a3 3 0 0 1 6 0v3"></path></svg><span class="cart-count" data-cart-count>{{ cart.items_count | default: 0 }}</span></a>
+      </div>
+    </div>
+  </header>
+  <nav class="mobile-menu" aria-label="Мобильная навигация">
+    <a href="/collection/all">Каталог</a><a class="sub" href="/collection/shtory">Шторы</a><a class="sub" href="/collection/tyul">Тюль</a><a class="sub" href="/collection/komplekty-na-okno">Комплекты на окно</a><a href="/collection/komplekty-na-okno" class="nav-accent">Готовые решения</a><a href="/page/contacts">Пошив по размерам</a><a href="/page/delivery">Покупателям</a><a href="/page/about-us">О бренде</a><a href="/favorites">Избранное</a><a href="/client_account/login">Личный кабинет</a>
+  </nav>
+</div>

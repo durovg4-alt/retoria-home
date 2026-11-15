@@ -31,6 +31,7 @@
 @font-face { font-family: "RH Sans"; font-weight: 200 800; font-display: swap; src: url("manrope-cyrillic-wght-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
 @font-face { font-family: "RH Sans"; font-weight: 200 800; font-display: swap; src: url("manrope-latin-wght-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122; }
 
+@font-face { font-family: "RH Bodoni"; font-weight: 400; font-display: swap; src: url("bodoni-moda-latin-400-normal.woff2") format("woff2"); }
 :root { --rh-ink: #232218; --rh-muted: #77766d; --rh-paper: #f7f5ef; --rh-warm: #eeebe2; --rh-moss: #595b3b; --rh-moss-dark: #42442c; --rh-line: rgba(35,34,24,.14); }
 body { background: var(--rh-paper); color: var(--rh-ink); font-family: "RH Sans", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
 h1, h2, h3, .h1, .h2, .h3 { font-family: "RH Serif", Georgia, serif; font-weight: 400; letter-spacing: -.02em; }
@@ -39,18 +40,6 @@ h1, h2, h3, .h1, .h2, .h3 { font-family: "RH Serif", Georgia, serif; font-weight
 /* --- RETORIA: блоки InSales в стиле прототипа --- */
 body, .layout { background: var(--rh-paper); }
 .heading, .page-headding, .product__title, h1 { font-family: "RH Serif", Georgia, serif !important; font-weight: 400 !important; letter-spacing: -.02em; }
-
-/* шапка */
-.header { background: rgba(247,245,239,.94); border-bottom: 1px solid var(--rh-line); }
-.header__logo svg { display: none; }
-.header__logo { display: inline-grid; justify-items: center; line-height: 1; color: var(--rh-ink); }
-.header__logo::before { content: "RETORIA"; font: 400 30px/1 "RH Serif", Georgia, serif; letter-spacing: .14em; }
-.header__logo::after { content: "HOME"; margin-top: 4px; font: 600 9px/1 "RH Sans", Arial, sans-serif; letter-spacing: .32em; }
-.header__show-menu-btn { display: inline-flex; align-items: center; justify-content: center; width: 46px; height: 46px; border: 1px solid var(--rh-line); border-radius: 50%; }
-.header__show-menu-text { display: none; }
-.header__collections-link { font: 600 12px/1 "RH Sans", Arial, sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--rh-ink); }
-.header__collections-link:hover { color: var(--rh-moss); }
-.header__control-bage { background: var(--rh-moss); color: #f8f5ed; }
 
 /* кнопки */
 .button:not(.option-value):not(.splide__arrow):not(.favorites_btn) { border-radius: 999px; }
@@ -84,12 +73,43 @@ body, .layout { background: var(--rh-paper); }
 .product__buy-one-click .button { border: 1px solid var(--rh-ink) !important; background: transparent !important; color: var(--rh-ink) !important; }
 .splide__arrow { border-radius: 50%; background: rgba(247,245,239,.92) !important; }
 
-/* подвал */
-.footer { background: var(--rh-ink); color: #f8f5ed; }
-.footer a { color: #f8f5ed; }
 .page-headding { font-size: clamp(38px, 4.4vw, 60px) !important; line-height: 1 !important; letter-spacing: -.035em !important; }
 .product__sale { display: inline-flex; width: auto; padding: 5px 10px; }
 /* фото товара 3:4 на всю рамку, как на сайте */
 .product__gallery-main .img-ratio, .product__slide-main .img-ratio, .product-preview__photo .img-ratio { aspect-ratio: 3 / 4; height: auto; padding: 0 !important; }
 .product__gallery-main .img-ratio__inner, .product__slide-main .img-ratio__inner, .product-preview__photo .img-ratio__inner { position: absolute; inset: 0; }
 .product__gallery-main img, .product__slide-main img, .product-preview__photo img { width: 100% !important; height: 100% !important; max-width: none !important; max-height: none !important; object-fit: cover !important; }
+/* --- RETORIA: карточки товаров как в прототипе (.product-card) --- */
+.catalog-list { gap: 34px 18px !important; }
+@media (min-width: 1024px) { .catalog-list { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; } }
+@media (max-width: 767px) { .catalog-list { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 26px 12px !important; } }
+.product-preview { position: relative; container-type: inline-size; }
+.product-preview__content { display: flex !important; flex-direction: column; height: 100%; }
+.product-preview__area-photo { order: 0; margin-bottom: 14px; }
+.product-preview__photo { position: relative; }
+.product-preview__photo .img-ratio { overflow: hidden; border-radius: 22px; background: var(--rh-warm); aspect-ratio: .84; height: auto; padding: 0 !important; }
+.product-preview__photo .img-ratio__inner { position: absolute; inset: 0; }
+.product-preview__photo img { width: 100% !important; height: 100% !important; max-width: none !important; max-height: none !important; object-fit: cover !important; transition: transform .7s cubic-bezier(.2,.7,.2,1); }
+.product-preview:hover .product-preview__photo img { transform: scale(1.035); }
+.product-preview__area-title { order: 1; }
+.product-preview__title, .product-preview__title a { margin: 0 3px 10px; font: 400 23px/1.25 "RH Bodoni", "Bodoni 72", Didot, Georgia, serif !important; letter-spacing: -.01em; color: var(--rh-ink) !important; text-decoration: none; }
+.product-preview__area-rating, .product-preview__area-description, .product-preview__available, .product-preview__area-variants, .product-preview__compare-btn { display: none !important; }
+.product-preview__area-bottom, .product-preview__buy { order: 2; margin-top: auto; }
+.product-preview__price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin: 0 3px; }
+.product-preview__price-label { order: 0; font: 650 21px/1.2 "RH Sans", Arial, sans-serif; color: var(--rh-ink); text-transform: lowercase; }
+.product-preview__price-cur, .product-preview__price-min { order: 1; font: 650 21px/1.2 "RH Sans", Arial, sans-serif !important; color: var(--rh-ink) !important; }
+.product-preview__price-old { order: 3; flex-basis: 100%; font: 400 14px/1.5 "RH Sans", Arial, sans-serif; color: var(--rh-muted); text-decoration: line-through; }
+.product-preview .sticker-sale { background: #a55735 !important; color: #fff !important; border-radius: 999px; font: 700 13px/18px "RH Sans", Arial, sans-serif; padding: 2px 8px; }
+.product-preview .stickers { top: 13px; left: 13px; }
+/* сердечко и кнопка «подробнее» — поверх фото, как в прототипе */
+.product-preview .favorites_btn { position: absolute !important; z-index: 3; top: 13px; right: 13px; width: 44px; height: 44px; padding: 0 !important; display: grid !important; place-items: center; border: 1px solid var(--rh-line) !important; border-radius: 50% !important; background: rgba(247,245,239,.9) !important; color: var(--rh-ink) !important; }
+.product-preview__detail-select-btn, .product-preview__detail-btn, .product-preview__show-modal-variants-btn, .product-preview .add-cart-counter__btn { position: absolute !important; z-index: 3; right: 13px; top: calc(100cqw / .84 - 57px); width: 44px; height: 44px; min-width: 0 !important; padding: 0 !important; display: grid !important; place-items: center; border: 0 !important; border-radius: 50% !important; background: var(--rh-ink) !important; color: #fff !important; }
+.product-preview__controls-left { position: static !important; }
+/* фильтр каталога — спокойнее, как в прототипе */
+[data-sidebar], .sidebar-filter, .filter { background: transparent !important; }
+.filter__title, .filter-item__title, .filter-section__title { font: 700 13px/1.3 "RH Sans", Arial, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--rh-ink); }
+
+/* обёртки наших блоков */
+.rh-contents { display: contents; }
+.rh-site .rh-nophoto { display: grid; place-items: center; width: 100%; aspect-ratio: .78; background: var(--warm); color: var(--muted); font-size: 14px; }
+.rh-site .rh-desc ul { padding-left: 1.2em; }

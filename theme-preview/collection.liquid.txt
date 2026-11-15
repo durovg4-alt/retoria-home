@@ -1,0 +1,66 @@
+{%- comment -%}
+  RETORIA HOME: каталог как в прототипе. Фильтры и сортировка работают в браузере (rh-site.js) по data-атрибутам карточек:
+  комната и затемнение берутся из параметров товара, размеры — из названий вариантов «ширина / высота».
+  shortcut: фильтрует только товары текущей страницы категории; если товаров станет больше, чем «товаров на странице» в настройках, — увеличить это число.
+{%- endcomment -%}
+<div class="rh-site">
+<div class="page">
+  <nav class="shell breadcrumb" aria-label="Хлебные крошки"><a href="/">Главная</a> / {% if collection.handle != 'all' %}<a href="/collection/all">Каталог</a> / {% endif %}<span aria-current="page">{{ collection.title }}</span></nav>
+  <section class="shell page-head"><h1 class="section-title small">{% if collection.handle == 'all' %}Каталог{% else %}{{ collection.title }}{% endif %}</h1><p class="lede">Шторы, тюль и готовые комплекты на окно.</p></section>
+  <section class="shell catalog-layout">
+    <aside class="filter" id="filter" aria-label="Фильтры">
+      <form id="filter-form" data-rh-filter>
+        <div class="filter-head"><strong>Фильтры</strong><button type="button" data-rh-reset>Сбросить</button></div>
+        <fieldset class="filter-group"><legend>Тип товара</legend>
+          <label class="check"><input type="radio" name="type" value="/collection/all"{% if collection.handle == 'all' %} checked{% endif %} data-rh-nav><span>Все товары</span></label>
+          <label class="check"><input type="radio" name="type" value="/collection/shtory"{% if collection.handle == 'shtory' %} checked{% endif %} data-rh-nav><span>Шторы</span></label>
+          <label class="check"><input type="radio" name="type" value="/collection/tyul"{% if collection.handle == 'tyul' %} checked{% endif %} data-rh-nav><span>Тюль</span></label>
+          <label class="check"><input type="radio" name="type" value="/collection/komplekty-na-okno"{% if collection.handle == 'komplekty-na-okno' %} checked{% endif %} data-rh-nav><span>Комплекты на окно</span></label>
+        </fieldset>
+        <fieldset class="filter-group"><legend>Комната</legend>
+          <label class="check"><input type="checkbox" name="room" value="Спальня"><span>Спальня</span></label>
+          <label class="check"><input type="checkbox" name="room" value="Гостиная"><span>Гостиная</span></label>
+          <label class="check"><input type="checkbox" name="room" value="Детская"><span>Детская</span></label>
+          <label class="check"><input type="checkbox" name="room" value="Кухня"><span>Кухня</span></label>
+        </fieldset>
+        <fieldset class="filter-group"><legend>Затемнение</legend>
+          <label class="check"><input type="checkbox" name="blackout" value="Блэкаут"><span>Блэкаут<small>Плотная ткань, сильное затемнение</small></span></label>
+          <label class="check"><input type="checkbox" name="blackout" value="Полупрозрачный"><span>Рассеивает свет<small>Приватность днём, свет мягкий и тёплый</small></span></label>
+        </fieldset>
+        <fieldset class="filter-group"><legend>Размер</legend><div class="size-pair">
+          <label class="select-field"><span>Ширина, см</span><select name="width"><option value="">Любая</option><option>150</option><option>200</option><option>300</option><option>400</option><option>500</option><option>600</option></select></label>
+          <label class="select-field"><span>Высота, см</span><select name="height"><option value="">Любая</option><option>150</option><option>200</option><option>220</option><option>230</option><option>240</option><option>250</option><option>260</option><option>270</option><option>280</option></select></label>
+        </div></fieldset>
+        <fieldset class="filter-group"><legend>Цена</legend>
+          <label class="check"><input type="radio" name="price" value="0-3000"><span>До 3 000 ₽</span></label>
+          <label class="check"><input type="radio" name="price" value="3000-6000"><span>3 000 – 6 000 ₽</span></label>
+          <label class="check"><input type="radio" name="price" value="6000-"><span>От 6 000 ₽</span></label>
+          <label class="check"><input type="radio" name="price" value="" checked><span>Любая</span></label>
+        </fieldset>
+        <button type="button" class="pill primary filter-done" data-rh-filter-toggle>Показать товары</button>
+      </form>
+    </aside>
+    <div>
+      <div class="catalog-toolbar"><div><button type="button" class="pill filter-toggle" data-rh-filter-toggle aria-controls="filter">Фильтры <b data-rh-filter-count></b></button><span data-rh-count></span></div>
+        <label class="sort"><span class="sr-only">Сортировка</span><select data-rh-sort><option value="popular">Популярные</option><option value="cheap">Сначала дешевле</option><option value="expensive">Сначала дороже</option></select></label></div>
+      <div class="product-grid" data-rh-grid>
+        {%- for product in collection.products -%}
+                    {%- capture rooms -%}{%- for property in product.properties -%}{%- if property.title == 'Помещение' -%}{%- for c in product.characteristics -%}{%- if c.property_id == property.id -%}{{ c.title }},{%- endif -%}{%- endfor -%}{%- endif -%}{%- endfor -%}{%- endcapture -%}
+          {%- capture blackout -%}{%- for property in product.properties -%}{%- if property.title == 'Затемнение' -%}{%- for c in product.characteristics -%}{%- if c.property_id == property.id -%}{{ c.title }}{%- endif -%}{%- endfor -%}{%- endif -%}{%- endfor -%}{%- endcapture -%}
+          <article class="product-card" data-rh-card data-index="{{ forloop.index }}" data-price="{{ product.price_min }}" data-rooms="{{ rooms }}" data-blackout="{{ blackout }}" data-variants="{% for v in product.variants %}{{ v.title | replace: ' ', '' }}|{{ v.price }}|{{ v.old_price }};{% endfor %}">
+            <div class="media"><a href="{{ product.url }}" aria-label="{{ product.title | escape }}">{% if product.first_image %}<img src="{{ product.first_image.large_url }}" alt="{{ product.title | escape }}" loading="lazy">{% else %}<span class="rh-nophoto">Фото скоро</span>{% endif %}</a>
+              <a class="quick-add icon-btn" href="{{ product.url }}" aria-label="Выбрать размер: {{ product.title | escape }}"><span aria-hidden="true">＋</span></a></div>
+            <div class="product-meta">
+              <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
+              <div class="card-price"><strong data-rh-card-price>{% if product.variants.size > 1 %}от {% endif %}{{ product.price_min | money }}</strong><span class="discount" data-rh-card-disc hidden></span></div>
+              <div class="card-price-sub"><s data-rh-card-old></s><span data-rh-card-size></span></div>
+              <div class="card-specs">{% if blackout != '' %}<div class="card-spec-row"><span>{{ blackout }}</span></div>{% endif %}<div class="card-spec-row card-sizes" data-rh-size-range></div></div>
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+      <p class="muted" data-rh-empty hidden>По выбранным фильтрам ничего не нашлось. <button type="button" class="text-link" data-rh-reset>Сбросить фильтры</button></p>
+    </div>
+  </section>
+</div>
+</div>

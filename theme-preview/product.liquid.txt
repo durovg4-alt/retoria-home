@@ -1,0 +1,58 @@
+{%- comment -%}
+  RETORIA HOME: карточка товара как в прототипе (галерея слева, параметры, блок покупки справа).
+  Варианты «ширина / высота» выбираются кнопками (rh-site.js), в корзину уходит обычная форма InSales: variant_id + quantity на cart_url.
+{%- endcomment -%}
+{%- assign v0 = product.variants.first -%}
+<div class="rh-site">
+<div class="page">
+  <nav class="shell breadcrumb" aria-label="Хлебные крошки"><a href="/">Главная</a> / <a href="/collection/all">Каталог</a> / <span aria-current="page">{{ product.title }}</span></nav>
+  <section class="shell product-detail">
+    <div class="gallery">
+      <div class="gallery-stage"><div class="gallery-main"><img data-rh-main src="{% if product.first_image %}{{ product.first_image.original_url }}{% endif %}" alt="{{ product.title | escape }}"></div>{% if product.images.size > 1 %}<button type="button" class="gal-arrow prev" data-rh-step="-1" aria-label="Предыдущее фото">‹</button><button type="button" class="gal-arrow next" data-rh-step="1" aria-label="Следующее фото">›</button>{% endif %}</div>
+      {%- if product.images.size > 1 -%}
+      <div class="thumbs">{% for image in product.images %}<button type="button" class="thumb{% if forloop.first %} active{% endif %}" data-rh-thumb="{{ image.original_url }}" aria-label="Фото {{ forloop.index }}"><img src="{{ image.medium_url }}" alt=""></button>{% endfor %}</div>
+      {%- endif -%}
+      <p class="muted small">Цвет на экране может отличаться от реального.</p>
+    </div>
+    <div class="product-panel">
+      <div class="pp-info">
+        <p class="eyebrow">{% if v0.sku != blank %}арт. <span data-rh-sku>{{ v0.sku }}</span>{% endif %}</p>
+        <h1>{{ product.title }}</h1>
+        {%- capture rh_blackout -%}{%- for property in product.properties -%}{%- if property.title == 'Затемнение' -%}{%- for c in product.characteristics -%}{%- if c.property_id == property.id -%}{{ c.title }}{%- endif -%}{%- endfor -%}{%- endif -%}{%- endfor -%}{%- endcapture -%}{%- capture rh_rooms -%}{%- for property in product.properties -%}{%- if property.title == 'Помещение' -%}{%- for c in product.characteristics -%}{%- if c.property_id == property.id -%}{{ c.title }}{%- endif -%}{%- endfor -%}{%- endif -%}{%- endfor -%}{%- endcapture -%}{%- capture rh_short -%}{%- for property in product.properties -%}{%- if property.title == 'Краткое описание' -%}{%- for c in product.characteristics -%}{%- if c.property_id == property.id -%}{{ c.title }}{%- endif -%}{%- endfor -%}{%- endif -%}{%- endfor -%}{%- endcapture -%}
+        <div class="key-facts">{% if rh_blackout != '' %}<span>{{ rh_blackout }}</span>{% endif %}{% if rh_rooms != '' %}<span>{{ rh_rooms }}</span>{% endif %}</div>
+        {%- if product.variants.size > 1 -%}
+        <div class="option"><div class="option-head"><strong>Ширина, см</strong></div><div class="choice-row" data-rh-opt="w"></div></div>
+        <div class="option"><div class="option-head"><strong>Высота, см</strong></div><div class="choice-row" data-rh-opt="h"></div></div>
+        {%- endif -%}
+        {%- if product.short_description != blank -%}<div class="pp-desc">{{ product.short_description }}</div>{%- elsif rh_short != '' -%}<p class="pp-desc">{{ rh_short }}</p>{%- endif -%}
+      </div>
+      <aside class="pp-buy">
+        <div class="product-price"><span data-rh-price>{% if product.variants.size > 1 %}от {% endif %}{{ product.price_min | money }}</span> <s class="old-price" data-rh-old></s><span class="discount" data-rh-disc hidden></span><small class="min-size" data-rh-size>{% if product.variants.size > 1 %}выберите ширину и высоту{% endif %}</small></div>
+        <p class="pp-stock" data-rh-stock>{% if product.available %}В наличии{% else %}Нет в наличии{% endif %}</p>
+        <form action="{{ cart_url }}" method="post" data-rh-buy>
+          <select name="variant_id" data-rh-variants hidden>
+            {%- for v in product.variants -%}<option value="{{ v.id }}" data-title="{{ v.title | escape }}" data-price="{{ v.price | money | escape }}" data-old="{% if v.old_price > v.price %}{{ v.old_price | money | escape }}{% endif %}" data-disc="{% if v.old_price > v.price %}{{ v.old_price | minus: v.price | times: 100 | divided_by: v.old_price | round }}{% endif %}" data-sku="{{ v.sku | escape }}" data-available="{{ v.available }}"{% if forloop.first and product.variants.size == 1 %} selected{% endif %}>{{ v.title }}</option>{%- endfor -%}
+          </select>
+          <div class="buy-row"><div class="qty"><button type="button" data-rh-qty="-1" aria-label="Меньше">−</button><span data-rh-qty-val>1</span><button type="button" data-rh-qty="1" aria-label="Больше">+</button></div>
+            <input type="hidden" name="quantity" value="1" data-rh-qty-input>
+            <button class="pill primary" type="submit" data-rh-add{% if product.variants.size > 1 %} disabled{% endif %}>{% if product.variants.size > 1 %}Выберите размер{% else %}В корзину{% endif %}</button></div>
+        </form>
+        <div class="panel-links"><a class="pill" href="/page/contacts">Сшить по своим размерам</a><a class="pill" href="/page/contacts"><svg class="icon" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"></path><circle cx="12" cy="13" r="3.5"></circle></svg> Фото окна консультанту</a></div>
+        <div class="pp-note"><strong>Доставка</strong> СДЭК, Яндекс Доставка и пункты выдачи. Стоимость — при оформлении.</div>
+        <div class="pp-note"><strong>Возврат</strong> Обмен и возврат в течение 14 дней при сохранении товарного вида. Гарантия 60 дней на заводской брак.</div>
+      </aside>
+    </div>
+  </section>
+
+  {%- if product.properties.size > 0 -%}
+  <section class="section compact shell">
+    <p class="eyebrow">Характеристики</p><h2 class="section-title small">Ткань, уход и крепление</h2>
+    <dl class="spec-table">{% for property in product.properties %}{% unless property.title == 'Помещение' or property.title == 'Краткое описание' %}<div><dt>{{ property.title }}</dt><dd>{% for c in product.characteristics %}{% if c.property_id == property.id %}{{ c.title }} {% endif %}{% endfor %}</dd></div>{% endunless %}{% endfor %}</dl>
+  </section>
+  {%- endif -%}
+
+  {%- if product.description != blank -%}
+  <section class="section compact shell"><p class="eyebrow">Описание</p><div class="lede rh-desc">{{ product.description }}</div></section>
+  {%- endif -%}
+</div>
+</div>

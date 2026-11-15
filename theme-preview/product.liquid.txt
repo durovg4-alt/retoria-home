@@ -26,7 +26,7 @@
         {%- endif -%}
         {%- if product.short_description != blank -%}<div class="pp-desc">{{ product.short_description }}</div>{%- elsif rh_short != '' -%}<p class="pp-desc">{{ rh_short }}</p>{%- endif -%}
       </div>
-      <aside class="pp-buy">
+      <div class="pp-buy">
         <div class="product-price"><span data-rh-price>{% if product.variants.size > 1 %}от {% endif %}{{ product.price_min | money }}</span> <s class="old-price" data-rh-old></s><span class="discount" data-rh-disc hidden></span><small class="min-size" data-rh-size>{% if product.variants.size > 1 %}выберите ширину и высоту{% endif %}</small></div>
         <p class="pp-stock" data-rh-stock>{% if product.available %}В наличии{% else %}Нет в наличии{% endif %}</p>
         <form action="{{ cart_url }}" method="post" data-rh-buy>
@@ -40,7 +40,7 @@
         <div class="panel-links"><a class="pill" href="/page/contacts">Сшить по своим размерам</a><a class="pill" href="/page/contacts"><svg class="icon" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"></path><circle cx="12" cy="13" r="3.5"></circle></svg> Фото окна консультанту</a></div>
         <div class="pp-note"><strong>Доставка</strong> СДЭК, Яндекс Доставка и пункты выдачи. Стоимость — при оформлении.</div>
         <div class="pp-note"><strong>Возврат</strong> Обмен и возврат в течение 14 дней при сохранении товарного вида. Гарантия 60 дней на заводской брак.</div>
-      </aside>
+      </div>
     </div>
   </section>
 

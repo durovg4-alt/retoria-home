@@ -8,7 +8,7 @@
   <nav class="shell breadcrumb" aria-label="Хлебные крошки"><a href="/">Главная</a> / {% if collection.handle != 'all' %}<a href="/collection/all">Каталог</a> / {% endif %}<span aria-current="page">{{ collection.title }}</span></nav>
   <section class="shell page-head"><h1 class="section-title small">{% if collection.handle == 'all' %}Каталог{% else %}{{ collection.title }}{% endif %}</h1><p class="lede">Шторы, тюль и готовые комплекты на окно.</p></section>
   <section class="shell catalog-layout">
-    <aside class="filter" id="filter" aria-label="Фильтры">
+    <div class="filter" id="filter" aria-label="Фильтры">
       <form id="filter-form" data-rh-filter>
         <div class="filter-head"><strong>Фильтры</strong><button type="button" data-rh-reset>Сбросить</button></div>
         <fieldset class="filter-group"><legend>Тип товара</legend>
@@ -39,7 +39,7 @@
         </fieldset>
         <button type="button" class="pill primary filter-done" data-rh-filter-toggle>Показать товары</button>
       </form>
-    </aside>
+    </div>
     <div>
       <div class="catalog-toolbar"><div><button type="button" class="pill filter-toggle" data-rh-filter-toggle aria-controls="filter">Фильтры <b data-rh-filter-count></b></button><span data-rh-count></span></div>
         <label class="sort"><span class="sr-only">Сортировка</span><select data-rh-sort><option value="popular">Популярные</option><option value="cheap">Сначала дешевле</option><option value="expensive">Сначала дороже</option></select></label></div>
